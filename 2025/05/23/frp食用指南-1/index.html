@@ -315,7 +315,7 @@
 <span class="token key property">bindPort</span> <span class="token punctuation">=</span> <span class="token number">8080</span> <span class="token comment">#此处为你需要在frpc的visitors端 即访问者使用的端口</span>
 <span class="token key property">secretKey</span> <span class="token punctuation">=</span> <span class="token string">"Keys"</span> <span class="token comment">#可选 stcp/sudp的密钥 如果设置了该值 proxies中密钥需要与此处一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>这里<code>visitors</code>的<code>bindPort</code>和上面<code>tcp/udp</code>的有点类似 所指向的端口即为访问者使用的端口 此处为8080</p>
+<p>这里<code>visitors</code>的<code>bindPort</code>和上面<code>tcp/udp</code>的<code>remotePort</code>有点类似 所指向的端口即为访问者使用的端口 此处为8080</p>
 </blockquote>
 <p>配置完成后 我们分别在电脑A用<code>proxies</code>配置启动<code>frpc</code>再在电脑B启动<code>visitors</code>配置的<code>frpc</code> <strong>然后我们还需要启动一个<code>frps</code>服务</strong> 此时 我们可以在电脑B访问<code>8080</code>端口 实现访问电脑A<code>80</code>端口的服务</p>
 <blockquote>
