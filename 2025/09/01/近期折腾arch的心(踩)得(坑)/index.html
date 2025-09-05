@@ -242,7 +242,7 @@ VLC无法解码格式“h264”(H264-MPEG-4AVC(part 10))<span aria-hidden="true"
 <p>把能装的编解码都装了 还是没解决问题 当时急着看番就摆烂了 今天查阅wiki才发现 <a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/VLC_%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE%E5%99%A8#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3">只需要安装</a> <code>vlc-plugins-all</code> 这个包就好了…<br><strong><em>这也太不开箱即用了吧！</em></strong></p>
 <hr>
 <h2 id="Nvidia-睡眠问题"><a href="#Nvidia-睡眠问题" class="headerlink" title="Nvidia 睡眠问题"></a>Nvidia 睡眠问题</h2><p>老生常谈了 首先 检查是否支持睡眠设置:</p>
-<pre class="line-numbers language-none"><code class="language-none">$ cat &#x2F;sys&#x2F;power&#x2F;mem_sleep<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none"># cat &#x2F;sys&#x2F;power&#x2F;mem_sleep<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果显示为</p>
 <pre class="line-numbers language-none"><code class="language-none">❯ cat &#x2F;sys&#x2F;power&#x2F;mem_sleep
 [s2idle]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -251,14 +251,14 @@ VLC无法解码格式“h264”(H264-MPEG-4AVC(part 10))<span aria-hidden="true"
 <p>如果不是 也可尝试 但是可能失败 请尝试查阅更多资料（x<br>或尝试强制使用s3 <code>echo &#39;s2idle&#39; | sudo tee /sys/power/mem_sleep</code><br>如果有效 且接受s3睡眠 把 <code>mem_sleep_default=s2idle</code>也加入内核参数中</p>
 </blockquote>
 <p>尝试启用nvidia睡眠相关服务</p>
-<pre class="line-numbers language-none"><code class="language-none">$ systemctl enable nvidia-suspend.service
-$ systemctl enable nvidia-hibernate.service  
-$ systemctl enable nvidia-resume.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none"># systemctl enable nvidia-suspend.service
+# systemctl enable nvidia-hibernate.service  
+# systemctl enable nvidia-resume.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>成功后 在内核参数(一般是&#x2F;etc&#x2F;default&#x2F;grub)中往<code>GRUB_CMDLINE_LINUX_DEFAULT</code>这一行加入以下内容:</p>
 <pre class="line-numbers language-none"><code class="language-none">GRUB_CMDLINE_LINUX_DEFAULT&#x3D;&quot;loglevel&#x3D;3 quiet nvidia.NVreg_PreserveVideoMemoryAllocations&#x3D;1 nvidia.NVreg_TemporaryFilePath&#x3D;&#x2F;var&#x2F;tmp nvidia.NVreg_EnableS0ixPowerManagement&#x3D;1&quot;
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后重新生成grub配置</p>
-<pre class="line-numbers language-none"><code class="language-none">$ grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none"># grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>此时重启再尝试睡眠 问题应得到解决</p>
 <hr>
 <h2 id="鼠标指针"><a href="#鼠标指针" class="headerlink" title="鼠标指针"></a>鼠标指针</h2><p>推荐使用 <a target="_blank" rel="noopener" href="https://github.com/licyk/ani2xcur">ani2xcur</a> 将 windows 的自定义鼠标指针转换为 kde 可用指针 使用方法自行查看项目README<br>不过可能会遇到一些小问题</p>
