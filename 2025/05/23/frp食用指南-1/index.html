@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit">
+
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+
+    <title>frp食用指南 (1) · TheSw1mの小窝</title>
+
+    <meta name="description"
+          content="在深蓝中游弋">
+    
+        <meta name="author" content="TheSw1m">
+    
+
+    
+        <link rel="shortcut icon" href="/images/default-favicon.png">
+    
+
+    
+        <meta name="keywords" content="tools">
+    
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.6.0/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.5/400.min.css">
+    <link rel="stylesheet" integrity="sha256-E3sc886pqK23iENDqaXd3fQoD1kVP3TceC+3978NBRk=" crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+<div id="particles">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles", {
+            "particles": {
+                "number": {
+                    "value": 95,
+                    "density": {
+                        "enable": true,
+                        "value_area": 2446.3576890600452
+                    }
+                },
+                "color": {
+                    "value": "#bbbbbb"
+                },
+                "shape": {
+                    "type": "polygon",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 6
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 1.5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#bbbbbb",
+                    "opacity": 0.6,
+                    "width": 1.5
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 2,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 147.597845071462,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</div>
+
+<div class="navigation">
+    <div class="navigation-container">
+        <div class="navigation-menu">
+            
+                <li>
+                    
+                        <a href="/">首页</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <a href="/archives">归档</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <a href="/guestbook">留言板</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <a href="/links">友链</a>
+                    
+                </li>
+            
+        </div>
+        <div class="navigation-utility">
+            
+                <div class="clickable nav-button" id="nav-back" title="返回">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+            
+            <div class="clickable nav-button" id="nav-light" title="夜间模式">
+                <i class="fa-solid fa-cloud-sun light-mode-auto"></i>
+                <i class="fa-solid fa-moon light-mode-night"></i>
+                <i class="fa-solid fa-sun light-mode-day"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="author-info">
+        <img src="/images/main-avatar.webp" class="logo">
+        <h3><a href="/">TheSw1m</a></h3>
+        <div class="description"><p>在深蓝中游弋</p></div>
+        <ul class="social-links">
+            
+                <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/swim233"><i
+                                class="fa-brands fa-github"></i></a>
+                </li>
+            
+                <li>
+                    <a target="_blank" rel="noopener" href="https://t.me/TheSw1m"><i
+                                class="fa-brands fa-telegram"></i></a>
+                </li>
+            
+        </ul>
+    </div>
+    <div class="toc-container">
+        
+            
+        
+    </div>
+</div>
+
+<main class="main">
+    <div class="post">
+    <div class="post-container">
+        
+            <div class="post-info">
+                <div class="post-title"><h3><a>frp食用指南 (1)</a></h3></div>
+            </div>
+        
+
+        <div class="post-content">
+            <h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><p><strong>本文的目标是帮助想要使用frp来进行内网穿透&#x2F;p2p打洞 但是不知道如何配置的人 如果本篇内容对你有帮助 在评论区留言就好啦 我会很感谢的哦</strong></p>
+<p><em>第一次写这类文章 可能会有疏漏和错误的地方 如有发现请在评论区指正 <del>轻喷</del> 感谢各位的支持</em></p>
+<blockquote>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/tree/dev">https://github.com/fatedier/frp/tree/dev</a><br>官方文档：<a target="_blank" rel="noopener" href="https://gofrp.org/zh-cn/docs/reference/">https://gofrp.org/zh-cn/docs/reference/</a><br><del>吐槽一下 这个文档是真的难读懂</del></p>
+</blockquote>
+<hr>
+<h2 id="frp介绍"><a href="#frp介绍" class="headerlink" title="frp介绍"></a>frp介绍</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/dev/README_zh.md">frp</a> 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议，且支持 P2P 通信。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。</p>
+</blockquote>
+<p>frp支持两种工作模式 分别是 <code>Client-Server</code>（即客户端-服务端） 和 <code>Client-Server-Client</code> （即客户端-服务端-客户端）前者较为常用 支持的模式有 <code>tcp udp http https tcpmux</code> 而后者则支持<code>stcp sudp xtcp</code>等模式 具体如何使用后文会讲到</p>
+<hr>
+<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><p>首先 frp分为 <code>frpc</code> 和 <code>frps</code> 其中 <code>frps</code>为服务端 <code>frpc</code>则是客户端<br>而frp v2使用的配置为<code>toml</code>（好像还兼容ini 本文以toml为例）而具体又可以分为 <code>[common]</code> <code>[[visitors]]</code> 和 <code>[[proxies]]</code> 接下来会分别介绍</p>
+<hr>
+<h2 id="通用配置"><a href="#通用配置" class="headerlink" title="通用配置"></a>通用配置</h2><p>配置这部分内容 需要在toml配置文件里加上<code>[common]</code> 举个栗子</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">common</span><span class="token punctuation">]</span>
+<span class="token key property">to</span> <span class="token punctuation">=</span> <span class="token string">"/var/log/frp/"</span> <span class="token comment">#日志输出目录</span>
+<span class="token key property">level</span>  <span class="token punctuation">=</span> <span class="token string">"info"</span> <span class="token comment">#日志等级</span>
+<span class="token key property">maxDays</span> <span class="token punctuation">=</span> <span class="token number">5</span> <span class="token comment">#日志保留天数</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>更多参数详见 <a target="_blank" rel="noopener" href="https://gofrp.org/zh-cn/docs/reference/common/">https://gofrp.org/zh-cn/docs/reference/common/</a></p>
+<p>注意 这部分内容<strong>不是</strong>必须的 如果你不进行配置 也不会影响你正常使用frp</p>
+<p>和他的名字一样 这部分的配置在服务端和客户端都可以使用 你只需要把他加到配置文件中即可</p>
+<hr>
+<h2 id="服务端配置-frps"><a href="#服务端配置-frps" class="headerlink" title="服务端配置-frps"></a>服务端配置-frps</h2><p>这里就是配置 <code>frps</code> 的地方了 其中一般需要配置的就是 <code>bindAddr</code> 和 <code>bindPort</code> 他们分别是<code>frps</code>绑定的地址和端口 即<code>frps</code>所在机器监听的IP和 <em><strong>对外开放</strong></em> 的端口</p>
+<p>一般情况下 <code>bindAddr</code>配置为<code>0.0.0.0</code>即可 <code>bindPort</code> 需要根据机器的实际情况来进行配置 默认为 <code>7000</code> 如果有NAT或其他需求 改为可用端口即可</p>
+<p>此外 <strong>强烈建议</strong> 配置<code>auth</code>字段 特别是在公网的机器 这对你的机器安全十分重要 具体配置方法如下</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> <span class="token comment">#这里以token验证方式举例</span>
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#这里填写你希望使用的token 可以理解为密码 与你的frpc所填写的字段要一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>完整配置演示</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">bindAddr</span> <span class="token punctuation">=</span> <span class="token string">"0.0.0.0"</span>
+<span class="token key property">bindPort</span> <span class="token punctuation">=</span> <span class="token number">7000</span> <span class="token comment">#使用时请替换为实际的端口 当然如果7000端口是可用的也可以不修改</span>
+<span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> <span class="token comment">#这里以token验证方式举例</span>
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#这里填写你希望使用的token 可以理解为密码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>更多参数详见 <a target="_blank" rel="noopener" href="https://gofrp.org/zh-cn/docs/reference/server-configures/#authserverconfig">https://gofrp.org/zh-cn/docs/reference/server-configures/#authserverconfig</a></p>
+<hr>
+<h2 id="客户端配置-frpc"><a href="#客户端配置-frpc" class="headerlink" title="客户端配置-frpc"></a>客户端配置-frpc</h2><p>这里是重头戏 也是配置里最难理解的部分 <del>至少对我来说是</del></p>
+<p>客户端配置分为两部分 <code>visitors</code> 和 <code>proxies</code> 还记得我们说过<code>frp</code>分为两种工作模式吗 当你在使用 <code>Client-Server</code>模式的时候 <strong>不需要</strong>编写 <code>visitors</code> 部分配置 只需要配置 <code>proxies</code>即可</p>
+<h3 id="tcp-udp模式配置"><a href="#tcp-udp模式配置" class="headerlink" title="tcp&#x2F;udp模式配置"></a>tcp&#x2F;udp模式配置</h3><p><code>proxies</code>部分在<code>frpc</code>的配置中是最为重要的一部分 这里我们还是举例子来说明</p>
+<p>假设你本地的<code>80</code>端口有一个服务 你需要让其他人访问这个服务 这个时候你就可以借助<code>frp</code>实现 </p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">serverAddr</span> <span class="token punctuation">=</span> <span class="token string">"123.45.67.8"</span> <span class="token comment">#此处需要替换为与你frps服务器所在的ip地址</span>
+<span class="token key property">serverPort</span> <span class="token punctuation">=</span> <span class="token number">7000</span> <span class="token comment">#此处替换为你frps实际运行的端口</span>
+<span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> 
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#此处要与frps的token一致</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token table class-name">proxies</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"NAME"</span> <span class="token comment">#proxies的名字 具有唯一性 不能重复</span>
+<span class="token key property">type</span> <span class="token punctuation">=</span> <span class="token string">"tcp/udp"</span> <span class="token comment">#这里的类型根据你的服务所需要的网络类型来调整</span>
+<span class="token key property">localIP</span> <span class="token punctuation">=</span> <span class="token string">"127.0.0.1"</span> <span class="token comment">#默认为127.0.0.1 如有特殊需求可修改该项</span>
+<span class="token key property">localPort</span> <span class="token punctuation">=</span> <span class="token number">80</span> <span class="token comment">#这里是服务所在端口 即需要转发出去的端口</span>
+<span class="token key property">remotePort</span> <span class="token punctuation">=</span> <span class="token number">8080</span> <span class="token comment">#这里是你需要在公网/frps侧访问的端口 比如你的公网ip为 123.456.78.9 那么在访问的时候就是123.45.67.8:8080</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>注意 <code>remotePort</code>字段为<code>tcp</code>和<code>udp</code>模式独有 在使用其他模式的时候不用填写该字段</p>
+</blockquote>
+<p>现在 我们还需要启动上文配置好的<code>frps</code>的服务 此时 我们便可以通过访问<code>公网IP:8080</code>来实现访问部署在内网<code>80</code>端口的服务了</p>
+<h3 id="stcp-sudp-xtcp模式配置"><a href="#stcp-sudp-xtcp模式配置" class="headerlink" title="stcp&#x2F;sudp&#x2F;xtcp模式配置"></a>stcp&#x2F;sudp&#x2F;xtcp模式配置</h3><p>这三种模式中 所使用的模式为<code>Client-Server-Client</code> 即以服务器作为中转 转发<code>proxies</code>与<code>visitor</code>之间的流量 前两种使用较少 因为他们需要在两个客户端都开启<code>frpc</code>客户端</p>
+<p>第三个比较特殊 <code>xtcp</code>就是人们常说的打洞 如果打洞成功 流量就<strong>不再需要</strong>经过服务器进行中转了 这里先介绍<code>stcp</code>和<code>sudp</code></p>
+<p>再举个栗子 电脑A的<code>80</code>端口运行者一个服务 我需要在电脑B的<code>8080</code>端口访问他 此时</p>
+<h4 id="frpc-proxies-侧配置"><a href="#frpc-proxies-侧配置" class="headerlink" title="frpc-proxies 侧配置"></a>frpc-proxies 侧配置</h4><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">serverAddr</span> <span class="token punctuation">=</span> <span class="token string">"123.45.67.8"</span> <span class="token comment">#此处需要替换为与你frps服务器所在的ip地址</span>
+<span class="token key property">serverPort</span> <span class="token punctuation">=</span> <span class="token number">7000</span> <span class="token comment">#此处替换为你frps实际运行的端口</span>
+<span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> 
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#此处要与frps的token一致</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token table class-name">proxies</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"NAME"</span> <span class="token comment">#要求同上</span>
+<span class="token key property">type</span> <span class="token punctuation">=</span> <span class="token string">"stcp/sudp"</span> <span class="token comment">#根据要求选择</span>
+<span class="token key property">localIP</span> <span class="token punctuation">=</span> <span class="token string">"127.0.0.1"</span> <span class="token comment">#同上</span>
+<span class="token key property">localPort</span> <span class="token punctuation">=</span> <span class="token string">"80"</span> <span class="token comment">#同上</span>
+<span class="token key property">secretKey</span> <span class="token punctuation">=</span> <span class="token string">"keys"</span> <span class="token comment">#可选 stcp/sudp的密钥 如果设置了该值 visitors中密钥需要与此处一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="frpc-visitors-侧配置"><a href="#frpc-visitors-侧配置" class="headerlink" title="frpc-visitors 侧配置"></a>frpc-visitors 侧配置</h4><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">serverAddr</span> <span class="token punctuation">=</span> <span class="token string">"123.45.67.8"</span> <span class="token comment">#此处需要替换为与你frps服务器所在的ip地址</span>
+<span class="token key property">serverPort</span> <span class="token punctuation">=</span> <span class="token number">7000</span> <span class="token comment">#此处替换为你frps实际运行的端口</span>
+<span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> 
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#此处要与frps的token一致</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token table class-name">visitors</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"NAME"</span> <span class="token comment">#这里要和 proxies 中的name相同</span>
+<span class="token key property">type</span> <span class="token punctuation">=</span> <span class="token string">"stcp/sudp"</span> <span class="token comment">#同上</span>
+<span class="token key property">bindAddr</span> <span class="token punctuation">=</span> <span class="token string">"127.0.0.1"</span> <span class="token comment">#如无特殊要求 保持为127.0.0.1即可</span>
+<span class="token key property">bindPort</span> <span class="token punctuation">=</span> <span class="token number">8080</span> <span class="token comment">#此处为你需要在frpc的visitors端 即访问者使用的端口</span>
+<span class="token key property">secretKey</span> <span class="token punctuation">=</span> <span class="token string">"Keys"</span> <span class="token comment">#可选 stcp/sudp的密钥 如果设置了该值 proxies中密钥需要与此处一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>这里<code>visitors</code>的<code>bindPort</code>和上面<code>tcp/udp</code>的<code>remotePort</code>有点类似 所指向的端口即为访问者使用的端口 此处为8080</p>
+</blockquote>
+<p>配置完成后 我们分别在电脑A用<code>proxies</code>配置启动<code>frpc</code>再在电脑B启动<code>visitors</code>配置的<code>frpc</code> <strong>然后我们还需要启动一个<code>frps</code>服务</strong> 此时 我们可以在电脑B访问<code>8080</code>端口 实现访问电脑A<code>80</code>端口的服务</p>
+<blockquote>
+<p>使用<code>frpc/frps</code>时 可以通过 .&#x2F;frpc -c 来指定配置文件位置 如.&#x2F;frpc -c .&#x2F;frpc.toml 即为指定在当前目录下名为 <code>./frpc.toml</code>的配置文件</p>
+</blockquote>
+<h4 id="xtcp模式配置"><a href="#xtcp模式配置" class="headerlink" title="xtcp模式配置"></a>xtcp模式配置</h4><p><code>xtcp</code>即为我们常说的<code>打洞</code> 通过<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/STUN%E6%9C%8D%E5%8A%A1%E5%99%A8/2173892">stun服务器</a>的协助 使得连接双方可以<strong>不经过</strong>服务器的中转 直接进行连接 即不需要消耗服务器流量 并且延迟相对较低 不过鉴于国内网络环境 <code>xtcp</code>的打洞失败概率较大 需要配合<code>fallback</code>故障转移使用 下面为配置示例</p>
+<h4 id="frpc-proxies-侧配置-1"><a href="#frpc-proxies-侧配置-1" class="headerlink" title="frpc-proxies 侧配置"></a>frpc-proxies 侧配置</h4><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">serverAddr</span> <span class="token punctuation">=</span> <span class="token string">"123.45.67.8"</span> <span class="token comment">#此处需要替换为与你frps服务器所在的ip地址</span>
+<span class="token key property">serverPort</span> <span class="token punctuation">=</span> <span class="token number">7000</span> <span class="token comment">#此处替换为你frps实际运行的端口</span>
+<span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> 
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#此处要与frps的token一致</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token table class-name">proxies</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"NAME"</span> <span class="token comment">#要求同上</span>
+<span class="token key property">type</span> <span class="token punctuation">=</span> <span class="token string">"xtcp"</span> 
+<span class="token key property">localIP</span> <span class="token punctuation">=</span> <span class="token string">"127.0.0.1"</span> <span class="token comment">#同上</span>
+<span class="token key property">localPort</span> <span class="token punctuation">=</span> <span class="token string">"80"</span> <span class="token comment">#同上</span>
+<span class="token key property">secretKey</span> <span class="token punctuation">=</span> <span class="token string">"keys"</span> <span class="token comment">#可选 xtcp的密钥 如果设置了该值 visitors中密钥需要与此处一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="frpc-visitors-侧配置-1"><a href="#frpc-visitors-侧配置-1" class="headerlink" title="frpc-visitors 侧配置"></a>frpc-visitors 侧配置</h4><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token key property">serverAddr</span> <span class="token punctuation">=</span> <span class="token string">"123.45.67.8"</span> <span class="token comment">#此处需要替换为与你frps服务器所在的ip地址</span>
+<span class="token key property">serverPort</span> <span class="token punctuation">=</span> <span class="token number">7000</span> <span class="token comment">#此处替换为你frps实际运行的端口</span>
+<span class="token key property">auth.method</span> <span class="token punctuation">=</span> <span class="token string">"token"</span> 
+<span class="token key property">auth.token</span> <span class="token punctuation">=</span> <span class="token string">"Your_token"</span> <span class="token comment">#此处要与frps的token一致</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token table class-name">visitors</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"NAME"</span> <span class="token comment">#这里要和 proxies 中的name相同</span>
+<span class="token key property">type</span> <span class="token punctuation">=</span> <span class="token string">"xtcp"</span>
+<span class="token key property">bindAddr</span> <span class="token punctuation">=</span> <span class="token string">"127.0.0.1"</span> <span class="token comment">#如无特殊要求 保持为127.0.0.1即可</span>
+<span class="token key property">bindPort</span> <span class="token punctuation">=</span> <span class="token number">8080</span> <span class="token comment">#此处为你需要在frpc的visitors端 即访问者使用的端口</span>
+<span class="token key property">secretKey</span> <span class="token punctuation">=</span> <span class="token string">"Keys"</span> <span class="token comment">#可选 xtcp的密钥 如果设置了该值 proxies中密钥需要与此处一致</span>
+<span class="token key property">protocol</span> <span class="token punctuation">=</span> <span class="token string">"quic/kcp"</span> <span class="token comment">#可选 默认为quic</span>
+<span class="token key property">fallbackTo</span> <span class="token punctuation">=</span> <span class="token string">"visitors_NAME"</span> <span class="token comment">#可选 </span>
+<span class="token key property">keepTunnelOpen</span>	<span class="token punctuation">=</span> <span class="token boolean">true</span>/<span class="token boolean">false</span> <span class="token comment">#是否保持隧道打开 建议开启</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<ol>
+<li>如果服务对延迟敏感 可以将<code>protocol</code>切换为kcp 有兴趣可自行了解这两个协议的区别</li>
+<li>使用<code>xtcp</code>模式时 建议填写<code>fallbackTo</code>字段 此时 新建一个非<code>xtcp</code>类型的<code>visitors</code>和对应的<code>proxies</code> 如<code>tcp/stcp</code>等 配置文件中需要填写的部分按需填写 然后<code>visitors</code>中的<code>bindPort</code>字段填写为<code>-1</code> 即可实现故障转移</li>
+</ol>
+</blockquote>
+<p>更多参数 详见 <a target="_blank" rel="noopener" href="https://gofrp.org/zh-cn/docs/reference/visitor/#visitortransport">https://gofrp.org/zh-cn/docs/reference/visitor/#visitortransport</a></p>
+<p>此时 我们便完成了<code>frp</code>基本的配置 这里的部分可以满足大部分用户的需求 至于其他没有讲到的部分 感兴趣可以自行查阅文档 <del>有机会可能还会再写一篇来讲一下 摸了</del></p>
+<hr>
+<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>写这篇文章的初衷是最近在折腾frp 过程中踩了许多的坑 于是借此机会来写一篇blog 锻炼<del>练手</del>的同时 也希望能帮助到在学习使用frp的时候遇到困难的同学 如果本文对你有帮助 不妨转发给身边有类似需求的朋友 感谢您的分享</p>
+<p>同时 如果文中有错误或疏漏的地方 也希望大家能在评论区中指出 感谢各位的支持~</p>
+<p>特别鸣谢 <a target="_blank" rel="noopener" href="https://blog.sakurakooi.dev/">@SakuraKooi</a> 对本文的大力支持</p>
+
+        </div>
+
+        
+            <div class="post-info">
+                <div class="post-meta">
+    
+        <div class="meta-entry">
+            <i class="fa-regular fa-calendar"></i>
+            2025.05.23
+        </div>
+    
+    
+        <div class="meta-entry">
+            <i class="fa-solid fa-tag"></i>
+            
+                <a class="tag" href="/tags/tools/" title="tools">tools </a>
+            
+        </div>
+    
+    
+    
+        <div class="meta-entry">
+            
+<i class="fa-solid fa-fire"></i>
+<span id="visit-counter-d3f36f50-3790-11f0-8551-d786a2ffd843">Loading...</span>
+
+<script src="/js/plugins/visit-counter.js"></script>
+
+<script>
+    window.addEventListener("load", (event) => {
+        loadVisitCounter('d3f36f50-3790-11f0-8551-d786a2ffd843', 'https://blog-counter.swim853279614.workers.dev', 'QGefXOT0AOOXUXWigh4UPPrhSaMzy9to6cxtXib7Cur2sPQU06PBgDRHA1DG9rdH', true);
+    });
+</script>
+        </div>
+        <!-- TODO: visit counter -->
+    
+</div>
+            </div>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <a class="page-button clickable"
+                   href="/2025/09/01/%E8%BF%91%E6%9C%9F%E6%8A%98%E8%85%BEarch%E7%9A%84%E5%BF%83(%E8%B8%A9)%E5%BE%97(%E5%9D%91)/"
+                   title="近期折腾arch的心(踩)得(坑)">
+                    <span class="button-icon button-icon-prev"><i class="fa-solid fa-angles-left"></i></span>
+                    上一篇
+                </a>
+            
+            
+                <a class="page-button clickable"
+                   href="/2025/05/16/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%84%9A%E6%9C%AC/"
+                   title="服务器初始化脚本">
+                    下一篇
+                    <span class="button-icon button-icon-next"><i class="fa-solid fa-angles-right"></i></span>
+                </a>
+            
+        </div>
+    
+    
+    
+    <div class="post-comment">
+        <a id="comments"></a>
+        <div id="gitalk-container" style="margin: 0 0 30px 0;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js"
+            integrity="sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/md5@2.3.0/dist/md5.min.js"
+            integrity="sha256-se0xQkOOX44nCifjHRn5CNgLrhal4aKrdzH5gaCXB/4=" crossorigin="anonymous"></script>
+    <script>
+        const gitalk = new Gitalk({
+            clientID: 'Ov23liH4l7MYCx2uuB3M',
+            clientSecret: '2082b97cde3a522a39766f85d742d929ceb72139',
+            repo: 'blog_comments',
+            owner: 'swim233',
+            admin: ['swim233'],
+            id: 'd3f36f50-3790-11f0-8551-d786a2ffd843' || MD5(window.location.pathname),
+            distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+</div>
+</main>
+<div class="footer">
+    <div>
+        <span>© 2025&nbsp;</span><i class="fa fa-star"></i>&nbsp;<span>TheSw1m</span>
+    </div>
+    <div>
+    <span>
+        Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a> &amp;
+        Theme <a href="https://github.com/SakuraKoi/hexo-theme-whirlwind" target="_blank">Whirlwind </a>
+    </div>
+    <div class="moe-icp">
+        <img src="/images/moeicp.webp">
+        <a href="https://icp.gov.moe/?keyword=20251346" target="_blank">萌ICP备20251346号</a>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/js/all.min.js"
+        integrity="sha256-ShtKaqIDL7Iv2AJqPcHXS/s6kjSFvbypN5bRIlKTIk4=" crossorigin="anonymous"></script>
+</body>
+</html>

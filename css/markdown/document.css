@@ -1,0 +1,368 @@
+@charset "UTF-8";
+pre {
+  background: var(--markdown-pre-bg-color) !important;
+  position: relative;
+  font-size: 13px;
+}
+pre code {
+  background: transparent !important;
+  border: none;
+  background: inherit;
+}
+
+pre.language-html:before,
+pre.language-javascript:before,
+pre.language-bash:before,
+pre.language-css:before,
+pre.language-scss:before,
+pre.language-diff:before,
+pre.language-java:before,
+pre.language-xml:before,
+pre.language-python:before,
+pre.language-json:before,
+pre.language-swift:before,
+pre.language-ruby:before,
+pre.language-perl:before,
+pre.language-php:before,
+pre.language-c:before,
+pre.language-cpp:before,
+pre.language-rust:before,
+pre.language-markup:before,
+pre.language-sql:before,
+pre.language-objectivec:before,
+pre.language-makefile:before,
+pre.language-go:before,
+pre.language-ini:before,
+pre.language-groovy:before,
+pre.language-toml:before,
+pre.language-yaml:before {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  color: var(--markdown-pre-lang-color) !important;
+  text-align: right !important;
+  font-size: 12px !important;
+  padding: 10px 10px 0 !important;
+  line-height: 15px !important;
+  height: 15px !important;
+}
+
+pre.language-html:before {
+  content: "HTML";
+}
+
+pre.language-javascript:before {
+  content: "JS";
+}
+
+pre.language-bash:before {
+  content: "BASH";
+}
+
+pre.language-css:before {
+  content: "CSS";
+}
+
+pre.language-scss:before {
+  content: "SCSS";
+}
+
+pre.language-diff:before {
+  content: "DIFF";
+}
+
+pre.language-java:before {
+  content: "JAVA";
+}
+
+pre.language-xml:before {
+  content: "XML";
+}
+
+pre.language-python:before {
+  content: "PYTHON";
+}
+
+pre.language-json:before {
+  content: "JSON";
+}
+
+pre.language-swift:before {
+  content: "SWIFT";
+}
+
+pre.language-ruby:before {
+  content: "RUBY";
+}
+
+pre.language-perl:before {
+  content: "PERL";
+}
+
+pre.language-php:before {
+  content: "PHP";
+}
+
+pre.language-c:before {
+  content: "C";
+}
+
+pre.language-cpp:before {
+  content: "C++";
+}
+
+pre.language-java:before {
+  content: "JAVA";
+}
+
+pre.language-rust:before {
+  content: "RUST";
+}
+
+pre.language-markup:before {
+  content: "MARKUP";
+}
+
+pre.language-sql:before {
+  content: "SQL";
+}
+
+pre.language-objectivec:before {
+  content: "OBJECTIVE-C";
+}
+
+pre.language-makefile:before {
+  content: "MAKEFILE";
+}
+
+pre.language-go:before {
+  content: "GO";
+}
+
+pre.language-ini:before {
+  content: "INI";
+}
+
+pre.language-groovy:before {
+  content: "GROOVY";
+}
+
+pre.language-yaml:before {
+  content: "YAML";
+}
+
+pre.language-toml:before {
+  content: "TOML";
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid var(--border-color-darker-1);
+  margin: 2em 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-rendering: optimizeLegibility;
+  line-height: 1;
+  margin: 1em 0 1rem 0;
+}
+
+h1 {
+  font-size: 2.1rem;
+  line-height: 1.2em;
+}
+
+h2 {
+  font-size: 1.9rem;
+  line-height: 1.2em;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+h6 {
+  font-size: 1.1rem;
+}
+
+p, ul, ol, dl {
+  margin: 0.75em 0;
+}
+
+ul, ol, dl {
+  padding-inline-start: 0;
+}
+
+li {
+  margin-left: 2em;
+}
+
+dd {
+  margin-left: 2em;
+}
+
+ol ol,
+ul ul,
+ul ol,
+ol ul {
+  margin: 0.4em 0;
+}
+
+ul p, ol p, li p, blockquote p {
+  margin: 0;
+  overflow: visible;
+}
+
+a img {
+  border: none;
+}
+
+pre {
+  padding: 1em;
+}
+
+pre, code {
+  font-family: "JetBrains Mono", "Roboto Mono", "Lucida Console", "Trebuchet MS", "Courier New", Monaco, courier, "PingFang SC", "Hiragino Sans GB", "Microsoft Jhenghei", "Microsoft YaHei", monospace !important;
+}
+
+:not(pre) code {
+  padding: 1px 3px;
+  font-family: Inconsolata, monospace, sans-serif;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  border: 1px solid var(--border-color-normal);
+  background: var(--bg-color-darker-1);
+  color: var(--markdown-code-color-default);
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  letter-spacing: 1px;
+  color: var(--link-markdown-color);
+}
+
+li:has(input) {
+  margin-left: 0;
+}
+
+li:has(input)::marker {
+  content: "";
+}
+
+blockquote {
+  box-sizing: border-box;
+  margin: 0.3em -1px;
+  border-left: #4a4a4a 0.4em solid;
+  background-color: var(--bg-color-darker-1-solid);
+  color: var(--text-color-darker);
+  padding-right: 0.3em;
+  padding-left: 0;
+}
+blockquote :first-child {
+  padding-top: 0.3em;
+}
+blockquote :last-child:not(blockquote) {
+  padding-bottom: 0.3em;
+}
+blockquote p {
+  margin: 0 0 0 1em;
+}
+blockquote small {
+  display: inline-block;
+  margin: 0.8em 0 0.8em 1.5em;
+  font-size: 0.9em;
+  color: #ccc;
+}
+blockquote small:before {
+  content: "— ";
+}
+blockquote cite {
+  font-weight: bold;
+}
+blockquote cite a {
+  font-weight: normal;
+}
+blockquote footer {
+  margin: 0 0 0 1em;
+  font-size: 13px;
+}
+blockquote footer cite {
+  margin: 0 0 0 0.25em;
+}
+
+blockquote.pullquote.right {
+  text-align: right;
+  border-left: 0;
+  border-right: #4a4a4a 0.4em solid;
+  padding-right: 1em;
+}
+
+> blockquote {
+  margin: 1.6em 0;
+}
+
+table {
+  box-sizing: border-box;
+  margin: 1em 0;
+  width: 100%;
+  max-width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-spacing: 0;
+  background-color: transparent;
+}
+
+table, table tr, table tr td, table tr th {
+  border-color: var(--border-color-lighter);
+}
+
+table th {
+  color: var(--text-color-darker);
+  background-color: var(--bg-color-darker-2);
+}
+
+tr th {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  text-align: left;
+}
+
+tr th, tr td {
+  padding: 0.15em 0.5em;
+  border-right: 1px solid;
+  font-size: 1rem;
+}
+
+tr th:last-child, tr td:last-child {
+  border-right: 0;
+}
+
+table th {
+  font-weight: bold;
+}
+
+table tbody > tr:nth-child(odd) > td, table tbody > tr:nth-child(odd) > th {
+  background-color: var(--markdown-table-bg-color);
+}
+
+img {
+  max-width: 100%;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.2));
+}
