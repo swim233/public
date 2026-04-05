@@ -244,7 +244,7 @@
 </ul>
 <p>我的建议是：</p>
 <ul>
-<li>尽可能**不要将 zram 与磁盘 swap 一起运行。**在这种设置中，zram 会用冷旧页面填满快速内存，同时将你的活动工作集 (active working set) 推到缓慢的磁盘上，这比根本没有压缩 swap 还要糟糕。</li>
+<li>尽可能 <strong>不要将 zram 与磁盘 swap 一起运行。</strong> 在这种设置中，zram 会用冷旧页面填满快速内存，同时将你的活动工作集 (active working set) 推到缓慢的磁盘上，这比根本没有压缩 swap 还要糟糕。</li>
 <li><strong>如果你必须使用 zram</strong>，请将其与用户空间 OOM 管理器 (userspace OOM manager)（如 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html">systemd-oomd</a> 或 <a target="_blank" rel="noopener" href="https://github.com/rfjakob/earlyoom">earlyoom</a>）结合使用。如果没有它，内核的 OOM killer 在采取行动前可能会让系统挂起几分钟，因为它通常只在耗尽了许多轮毫无效果的激进回收 (aggressive reclaim) 周期后才会触发（详情见下文）。</li>
 <li><strong>对于服务器而言，zram 还有一层难以忽视的架构硬伤</strong>一个主要问题是其内存使用与系统的其余部分完全隔离，因此不会被计入任何控制组 (cgroup)，从而破坏了隔离语义 (isolation semantics)。</li>
 </ul>
