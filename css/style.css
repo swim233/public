@@ -106,7 +106,7 @@ body.night-mode {
 
 body {
   font-family: "LXGW WenKai Screen", "PingHei", "PingFang SC", Helvetica Neue, "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -354,7 +354,7 @@ a:hover {
   line-height: 1;
   font-weight: 600;
   color: #464646;
-  font-size: 22px;
+  font-size: 20px;
   margin: 0;
 }
 .post-title a:hover {
@@ -368,7 +368,7 @@ a:hover {
 .post-meta {
   max-width: 100%;
   color: var(--text-color-lighter-2);
-  font-size: 13px;
+  font-size: 12px;
   display: flex;
   flex-wrap: wrap;
   column-gap: 1em;

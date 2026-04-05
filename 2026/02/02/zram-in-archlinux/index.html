@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit">
+
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+
+    <title>Debunking zswap and zram myths - 打破关于 zswap 和 zram 的神话 · TheSw1mの小窝</title>
+
+    <meta name="description"
+          content="在深蓝中游弋">
+    
+        <meta name="author" content="TheSw1m">
+    
+
+    
+        <link rel="shortcut icon" href="/images/default-favicon.png">
+    
+
+    
+        <meta name="keywords" content="TheSw1mの小窝">
+    
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.6.0/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.5/400.min.css">
+    <link rel="stylesheet" integrity="sha256-E3sc886pqK23iENDqaXd3fQoD1kVP3TceC+3978NBRk=" crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+<div id="particles">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles", {
+            "particles": {
+                "number": {
+                    "value": 95,
+                    "density": {
+                        "enable": true,
+                        "value_area": 2446.3576890600452
+                    }
+                },
+                "color": {
+                    "value": "#bbbbbb"
+                },
+                "shape": {
+                    "type": "polygon",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 6
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 1.5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#bbbbbb",
+                    "opacity": 0.6,
+                    "width": 1.5
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 2,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 147.597845071462,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</div>
+
+<div class="navigation">
+    <div class="navigation-container">
+        <div class="navigation-menu">
+            
+                <li>
+                    
+                        <a href="/">首页</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <a href="/archives">归档</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <a href="/guestbook">留言板</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <a href="/links">友链</a>
+                    
+                </li>
+            
+        </div>
+        <div class="navigation-utility">
+            
+                <div class="clickable nav-button" id="nav-back" title="返回">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+            
+            <div class="clickable nav-button" id="nav-light" title="夜间模式">
+                <i class="fa-solid fa-cloud-sun light-mode-auto"></i>
+                <i class="fa-solid fa-moon light-mode-night"></i>
+                <i class="fa-solid fa-sun light-mode-day"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="author-info">
+        <img src="/images/main-avatar.webp" class="logo">
+        <h3><a href="/">TheSw1m</a></h3>
+        <div class="description"><p>在深蓝中游弋</p></div>
+        <ul class="social-links">
+            
+                <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/swim233"><i
+                                class="fa-brands fa-github"></i></a>
+                </li>
+            
+                <li>
+                    <a target="_blank" rel="noopener" href="https://t.me/TheSw1m"><i
+                                class="fa-brands fa-telegram"></i></a>
+                </li>
+            
+        </ul>
+    </div>
+    <div class="toc-container">
+        
+            
+        
+    </div>
+</div>
+
+<main class="main">
+    <div class="post">
+    <div class="post-container">
+        
+            <div class="post-info">
+                <div class="post-title"><h3><a>Debunking zswap and zram myths - 打破关于 zswap 和 zram 的神话</a></h3></div>
+            </div>
+        
+
+        <div class="post-content">
+            <h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p><strong>本文由 AI 翻译自 <a target="_blank" rel="noopener" href="https://chrisdown.name/2026/03/24/zswap-vs-zram-when-to-use-what.html">Debunking <em>zswap</em> and zram myths</a><br>并由本人精修润色</strong></p>
+<h2 id="先说结论"><a href="#先说结论" class="headerlink" title="先说结论:"></a>先说结论:</h2><blockquote>
+<p>如果不确定，请优先使用 zswap<br>除非你有非常具体的原因，否则才使用 zram</p>
+</blockquote>
+<h3 id="在架构（architecture）方面："><a href="#在架构（architecture）方面：" class="headerlink" title="在架构（architecture）方面："></a>在架构（architecture）方面：</h3><ul>
+<li><em>zswap</em> 位于你的磁盘交换空间 (disk swap) 之前，在内存 (RAM) 中压缩页面 (pages)，并自动将冷数据 (cold data) 分层 (tiers) 到磁盘。它直接与内核的内存管理 (memory management) 集成，并能优雅地分散压力。</li>
+<li>zram 是一个带有硬容量限制的压缩内存块设备 (block device)。当你在其上放置 swap 并且它满了时，没有自动的驱逐 (eviction) 机制，内核几乎没有任何手段来处理这种情况。系统要么遭遇内存耗尽 (OOMs)，要么回退到低优先级的 swap，导致 LRU 反转 (LRU inversion，见下文)。它实际上只在内存极其受限的嵌入式系统 (embedded systems)、无盘设置 (diskless setups) 或对保持私有数据远离持久存储有特定安全要求的情况下才有意义。上游 (upstream) 对 zram 上的 swap 的支持也越来越少。</li>
+</ul>
+<p>我的建议是：</p>
+<ul>
+<li>尽可能**不要将 zram 与磁盘 swap 一起运行。**在这种设置中，zram 会用冷旧页面填满快速内存，同时将你的活动工作集 (active working set) 推到缓慢的磁盘上，这比根本没有压缩 swap 还要糟糕。</li>
+<li><strong>如果你必须使用 zram</strong>，请将其与用户空间 OOM 管理器 (userspace OOM manager)（如 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html">systemd-oomd</a> 或 <a target="_blank" rel="noopener" href="https://github.com/rfjakob/earlyoom">earlyoom</a>）结合使用。如果没有它，内核的 OOM killer 在采取行动前可能会让系统挂起几分钟，因为它通常只在耗尽了许多轮毫无效果的激进回收 (aggressive reclaim) 周期后才会触发（详情见下文）。</li>
+<li><strong>对于服务器而言，zram 还有一层难以忽视的架构硬伤</strong>一个主要问题是其内存使用与系统的其余部分完全隔离，因此不会被计入任何控制组 (cgroup)，从而破坏了隔离语义 (isolation semantics)。</li>
+</ul>
+<hr>
+<p>最近，我收到了一位读者关于 Linux 上压缩 swap 技术的提问：</p>
+<blockquote>
+<p>“我读了你<a target="_blank" rel="noopener" href="https://chrisdown.name/2018/01/02/in-defence-of-swap.html">关于 Linux 内存管理（swap）的文章</a>，终于听到专家说的话了 :) 而不是互联网专家常说的‘你有 32GB 内存 - 关掉它吧’。</p>
+<p>如果能有一篇关于 zswap 或 zram 的后续文章就好了…… :) 它们好用吗（在拥有 32GB 或更多 RAM 的桌面上），哪一个更好以及为什么…… 我（从描述中）了解它们是如何工作的，但很难在现实生活中测量和比较。再次说明，很多‘互联网专家’只会说‘用 zram - 因为你不会磨损你的 SSD’……”</p>
+</blockquote>
+<p>好吧，首先，既然我在写这篇文章，显然奉承是对我有效的 ;-)</p>
+<p>确实，互联网上关于何时使用 zswap 与 zram 以及它们之间的权衡有很多困惑和错误信息。我在内核内存管理 (kernel memory management) 和 swap 代码方面工作了近十年，我见证了这些技术的发展以及围绕它们产生的一些常见误解。</p>
+<p>对大多数人来说，简短的答案是：<strong>使用 zswap</strong>。如果没有深入了解 zram 可能对你的工作负载 (workloads) 造成的风险，请不要使用 zram。但要理解为什么（以及理解何时 zram 实际上可能是正确的选择），需要深入了解这两种技术在内核本身中的工作原理。</p>
+<h3 id="架构差异-Architectural-differences"><a href="#架构差异-Architectural-differences" class="headerlink" title="架构差异 (Architectural differences)"></a>架构差异 (Architectural differences)</h3><p>大多数人认为 zswap 和 zram 只是同一事物的两种不同变体：压缩 swap (compressed swap)。从表面上看，这是正确的——两者都压缩原本会进入磁盘的页面——但它们在内核应如何处理内存压力方面有截然不同的设计理念，在你的情况下选择错误的那个实际上会比没有 swap 更糟糕。</p>
+<p>它们之间最显著的差异在于它们在内核存储层次结构 (storage hierarchy) 中的位置，从而也决定了它们能够向内核其他部分传递什么信号：</p>
+<ul>
+<li><strong>zram</strong> 作为一个压缩块设备 (compressed block device) 运行，本质上是内存中的虚拟磁盘。当进程需要 swap 时，内核像对待任何其他块设备一样对待 zram 上的 swap，通过块层 (block layer) 发送 I&#x2F;O 请求。重要的是，一旦 zram 满了，它就只是另一个达到容量上限的存储设备。没有自动机制将数据移到其他地方，这意味着最先被换出的冷页面被锁定在快速内存（RAM）中，无法被驱逐 (evict)。你可以想象，这通常是非常糟糕的。</li>
+<li><strong>zswap</strong> 则与内存管理子系统 (memory management subsystem) 结合得更紧密。它作为一个压缩层 (compression layer) 位于你的磁盘 swap 之前。当进程需要 swap 时，zswap 会在页面到达磁盘之前拦截它，决定是否压缩它，如果压缩，则将其存储在内存池 (memory pool) 中。当该池满时，zswap 使用自己的启发式算法 (heuristics) 将最近最少使用 (least recently used, LRU) 的页面驱逐到你的后备 swap 设备 (backing swap device)，旨在将你的热数据保留在压缩的 RAM 缓存中。</li>
+</ul>
+<p>换句话说，zram 提供了一个硬容量限制，而 zswap 提供了更快的（即压缩 RAM）和更慢的（即你的磁盘）swap 之间的<strong>自动分层（automatic tiering）</strong>，并随着内存压力的增加而优雅地降级。对于大多数人来说，优雅的降级是你想要的，不过让我们看看这些在实践中是如何发挥作用的。</p>
+<h3 id="zram-的块设备架构-zram’s-block-device-architecture"><a href="#zram-的块设备架构-zram’s-block-device-architecture" class="headerlink" title="zram 的块设备架构 (zram’s block device architecture)"></a><em>zram 的块设备架构 (zram’s block device architecture)</em></h3><p>zram 创建一个用作独立 swap 的压缩块设备。在 zram 上设置 swap 的典型过程是：</p>
+<ol>
+<li>通过 <code>modprobe zram</code> 加载模块来创建 zram 设备</li>
+<li>设置 <code>/sys/block/zram0/comp_algorithm</code>（使用的压缩算法）和 <code>/sys/block/zram0/disksize</code>（虚拟设备容量）</li>
+<li>在 <code>/dev/zram0</code> 上执行 <code>mkswap</code></li>
+<li>在 <code>/dev/zram0</code> 上执行 <code>swapon</code></li>
+</ol>
+<p>你可能会注意到，这看起来几乎与在分区上设置 swap 时所做的完全一样，这绝非巧合：内核通过块层将其视为只是另一个存储设备（参见 <code>zram_submit_bio()</code>）。</p>
+<p>这使得 zram 非常适合嵌入式系统：它是完全自包含的，不依赖于磁盘存储，而这些系统一开始可能就没有磁盘存储。当你在嵌入式控制器或带有 SD 卡的树莓派上时，zram 可以为你提供一定量的内存卸载，而没有任何外部依赖。到目前为止一切都很合理。</p>
+<p>然而，当你确实有可用的磁盘存储（如 SSD）时，zram 的块设备架构会产生一些明显的限制。内核本质上天真地认为 zram 与慢速磁盘上的典型块设备没什么不同，因此将通常的面向磁盘的默认设置应用于它。举一个例子，有一个名为 <code>vm.page-cluster</code> 的内核可调参数，它决定了当缺页中断 (faulting in) 发生在一个单独的 swap 页面时，我们想要预读 (readahead) 多少个页面。它默认值为 3——意味着内核一次读取 2^3 &#x3D; 8 个页面——以摊销在连续读取时成本较低的磁盘工作。这在硬盘驱动器上更为重要，但即使在现代 NAND 上，随机读取和顺序读取之间仍然存在有意义的性能差异。</p>
+<p>当我们开始致力于在 Quest（因为它运行的是 Android，使用 zram）上使用 zram 时，这种预读行为是我们遇到的第一个问题。对于磁盘，预读假设成立：磁盘上彼此靠近的页面在时间上也往往会一起被需要，所以摊销成本是好事。对于 zram，压缩页面没有局部性 (locality)，因此假设反转了：现在你每次只需要 1 个页面时，却用 7 个你不需要的页面污染了交换缓存 (swap cache)，这极大地影响了性能。</p>
+<p>重要的是，这既不是 Quest 特有的，也不是 <code>vm.page-cluster</code> 特有的——这更多是内核将 zram 像对待任何其他块设备一样对待的结果。<code>vm.page-cluster</code> 至少是可调的，但内核中还内置了其他甚至没有作为 <code>sysctls</code> 暴露出来的假设。在许多情况下，内核会与你作对，这需要花费大量的精力和知识才能把这件事做好。</p>
+<h3 id="zswap-的内存管理集成-zswap’s-memory-management-integration"><a href="#zswap-的内存管理集成-zswap’s-memory-management-integration" class="headerlink" title="zswap 的内存管理集成 (zswap’s memory management integration)"></a><em>zswap 的内存管理集成 (zswap’s memory management integration)</em></h3><p>相比之下，zswap 根本不创建块设备——它直接集成到内核的内存管理子系统 (memory management subsystem) 中。这种区别比听起来更重要：因为 zswap 融入了回收路径 (reclaim path) 本身，内核实际上知道 zswap 池中的哪些页面是热的，哪些是冷的。而 zram 只是作为另一个块设备，没有这种可见性。</p>
+<p>这种意识是自动分层 (automatic tiering) 的基础，这也是为什么在出现内存压力时，zswap 的降级表现明显优于 zram 的主要原因。</p>
+<p>关于如何启用 zswap，可以通过 <code>cat /sys/module/zswap/parameters/enabled</code> 检查它是否已开启。大多数主流发行版默认启用它。如果没有：<br><code>echo 1 &gt; /sys/module/zswap/parameters/enabled</code><br>来启用它</p>
+<p>要使其在重启后持久化，请将 <code>zswap.enabled=1</code> 添加到你的内核命令行。</p>
+<p>在分配器 (allocator) 选择上，优先选择 <code>zsmalloc</code> 而不是较旧的 <code>z3fold</code> 或 <code>zbud</code> 分配器。<code>zsmalloc</code> 通过对相似对象进行分组来实现高得多的压缩比，而较旧的分配器使用固定大小的对象，往往会浪费空间。<code>z3fold</code> 和 <code>zbud</code>（以及 <code>zpool</code> 接口本身）已从上游内核中移除，因此在当前内核上你不需要设置此项。在仍保留它们的发行版内核上，你可能需要显式选择 <code>zsmalloc</code>：<br><code>echo zsmalloc &gt; /sys/module/zswap/parameters/zpool</code></p>
+<p>那么 zswap 的分层是如何实际运作的呢？当内核需要换出 (swap out) 一个页面时，它会调用 <code>swap_writeout()</code>，这给了 zswap 拦截它的优先权：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">swap_writeout</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">folio</span> <span class="token operator">*</span>folio<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">swap_iocb</span> <span class="token operator">*</span><span class="token operator">*</span>swap_plug<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">/* ... */</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">zswap_store</span><span class="token punctuation">(</span>folio<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">/* zswap has called bagsy on the page */</span>
+        <span class="token function">count_mthp_stat</span><span class="token punctuation">(</span><span class="token function">folio_order</span><span class="token punctuation">(</span>folio<span class="token punctuation">)</span><span class="token punctuation">,</span> MTHP_STAT_ZSWPOUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">goto</span> out_unlock<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">mem_cgroup_zswap_writeback_enabled</span><span class="token punctuation">(</span><span class="token function">folio_memcg</span><span class="token punctuation">(</span>folio<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">folio_mark_dirty</span><span class="token punctuation">(</span>folio<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> AOP_WRITEPAGE_ACTIVATE<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">__swap_writepage</span><span class="token punctuation">(</span>folio<span class="token punctuation">,</span> swap_plug<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+out_unlock<span class="token operator">:</span>
+    <span class="token function">folio_unlock</span><span class="token punctuation">(</span>folio<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><em><a target="_blank" rel="noopener" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/page_io.c?h=v6.19#n240">swao_writeout()</a> 来自 Linux 6.19</em></p>
+</blockquote>
+<p>如果 <code>zswap_store()</code> 返回 true，则表明该页面已存储在压缩 RAM 中，且从未接触过磁盘。只有当 zswap 拒绝（或未启用）时，内核才会回退到写入后备 swap 设备。</p>
+<p>下面展示 <code>zswap_store()</code> 的内部工作原理：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">bool <span class="token function">zswap_store</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">folio</span> <span class="token operator">*</span>folio<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">/* ... */</span>
+
+    <span class="token comment">/* Check if we've hit pool size limits */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">zswap_check_limits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">goto</span> put_objcg<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Get the current compression pool */</span>
+    pool <span class="token operator">=</span> <span class="token function">zswap_pool_current_get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>pool<span class="token punctuation">)</span>
+        <span class="token keyword">goto</span> put_objcg<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Try to compress and store each page in the folio */</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> index <span class="token operator">&lt;</span> nr_pages<span class="token punctuation">;</span> <span class="token operator">++</span>index<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">struct</span> <span class="token class-name">page</span> <span class="token operator">*</span>page <span class="token operator">=</span> <span class="token function">folio_page</span><span class="token punctuation">(</span>folio<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">zswap_store_page</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span> objcg<span class="token punctuation">,</span> pool<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">goto</span> put_pool<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    ret <span class="token operator">=</span> true<span class="token punctuation">;</span>  <span class="token comment">/* Success! */</span>
+
+put_pool<span class="token operator">:</span>
+    <span class="token function">zswap_pool_put</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+put_objcg<span class="token operator">:</span>
+    <span class="token function">obj_cgroup_put</span><span class="token punctuation">(</span>objcg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* If we failed because pool was full, queue work to shrink it */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ret <span class="token operator">&amp;&amp;</span> zswap_pool_reached_full<span class="token punctuation">)</span>
+        <span class="token function">queue_work</span><span class="token punctuation">(</span>shrink_wq<span class="token punctuation">,</span> <span class="token operator">&amp;</span>zswap_shrink_work<span class="token punctuation">)</span><span class="token punctuation">;</span>
+check_old<span class="token operator">:</span>
+    <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><em><a target="_blank" rel="noopener" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/zswap.c?h=v6.19#n1494">zswap_store()</a> 来自 Linux 6.19</em></p>
+</blockquote>
+<p>你可能会注意到 <code>queue_work(shrink_wq, &amp;zswap_shrink_work)</code> 这部分逻辑。它的作用是，既然我们刚发现 zswap 满了，就排队一个工作线程，自动将一些冷页面驱逐到磁盘。它最终会调用 <a target="_blank" rel="noopener" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/zswap.c?h=v6.19#n1324"><code>shrink_worker()</code></a>来处理这个回收 (reclamation) 过程。</p>
+<p>这种与内存管理子系统（memory management subsystem）其余部分的深度整合，以及其他 mm 代码能够感知该存储机制特性的事实，正是 zswap 与 zram 截然不同的核心所在。zswap 作为 SSD swap 之前的透明压缩层，而不是像 zram 那样作为单独的存储层。当池满时，它会自动触发收缩器 (shrinker) 将冷页面驱逐到磁盘。</p>
+<h3 id="LRU-反转-LRU-inversion"><a href="#LRU-反转-LRU-inversion" class="headerlink" title="LRU 反转 (LRU inversion)"></a>LRU 反转 (LRU inversion)</h3><p>“等等，Chris，我在我的 zram swap 设备上设置了优先级 (priority)。那不就和 zswap 这种‘分层’架构一样了吗？”</p>
+<p>不幸的是，这种逻辑是人们在 zram 问题上“搬起石头砸自己的脚”的最常见方式之一。故事大致是这样的：</p>
+<ol>
+<li>一个页面准备被换出，此时调用 <code>swap_writeout()</code>。</li>
+<li>没有 zswap，只有 zram，因此内核只需查看 swap 设备列表即可找到优先级最高的设备。</li>
+<li>zram 配置为最高 swap 优先级，因此只要它有空间就会被选中。</li>
+</ol>
+<p>这一切在纸面上听起来都很好，对吧？当然，而这正是它不断让人掉入陷阱的原因。那么陷阱是什么呢？</p>
+<p>问题在于内核如何在多个设备之间分配 swap 空间。内核中有一个名为 <code>swap_alloc_slow()</code> 的函数，它专门负责寻找合适的设备与簇（cluster）来进行写入操作：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* Rotate the device and switch to a new cluster */</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">swap_alloc_slow</span><span class="token punctuation">(</span><span class="token class-name">swp_entry_t</span> <span class="token operator">*</span>entry<span class="token punctuation">,</span> <span class="token keyword">int</span> order<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> offset<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">swap_info_struct</span> <span class="token operator">*</span>si<span class="token punctuation">,</span> <span class="token operator">*</span>next<span class="token punctuation">;</span>
+
+    <span class="token function">spin_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>swap_avail_lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+start_over<span class="token operator">:</span>
+    <span class="token function">plist_for_each_entry_safe</span><span class="token punctuation">(</span>si<span class="token punctuation">,</span> next<span class="token punctuation">,</span> <span class="token operator">&amp;</span>swap_avail_head<span class="token punctuation">,</span> avail_list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">/* Rotate the device and switch to a new cluster */</span>
+        <span class="token function">plist_requeue</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>si<span class="token operator">-></span>avail_list<span class="token punctuation">,</span> <span class="token operator">&amp;</span>swap_avail_head<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">spin_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>swap_avail_lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">get_swap_device_info</span><span class="token punctuation">(</span>si<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            offset <span class="token operator">=</span> <span class="token function">cluster_alloc_swap_entry</span><span class="token punctuation">(</span>si<span class="token punctuation">,</span> order<span class="token punctuation">,</span> SWAP_HAS_CACHE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">put_swap_device</span><span class="token punctuation">(</span>si<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>offset<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token operator">*</span>entry <span class="token operator">=</span> <span class="token function">swp_entry</span><span class="token punctuation">(</span>si<span class="token operator">-></span>type<span class="token punctuation">,</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>order<span class="token punctuation">)</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token function">spin_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>swap_avail_lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">/* ... continue to next device if this one is full ... */</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这段代码的基本逻辑其实就是：高优先级（higher priority）的设备会被优先使用。这听起来合情合理，对吧？确实如此，这也是为什么用户<a target="_blank" rel="noopener" href="https://forum.endeavouros.com/t/zram-vs-zswap-why-choose-one-over-the-other/75980/5">总是习惯这样去配置</a>的原因。然而，这些用户却在不知不觉中埋下了一个陷阱，而且随着系统运行时间（uptime）的不断增加，触发这个陷阱的几率会越来越高。</p>
+<p>陷阱是这样的：由于 zram 设备上的 swap 具有最高优先级，内核在进行所有的内存分配时都会优先选择 zram。<strong>当 zram 满时，它将切换到基于磁盘的 swap 进行所有未来的分配。</strong></p>
+<p>这意味着在没有干预的情况下，你宝贵的 zram 会被无论什么<em>碰巧最先被换出的页面填满。<em>这通常与你现在真正需要的页面完全呈**负相关</em></em>。</p>
+<p>在典型的桌面会话中，这些页面通常是冷数据、初始化时的数据，这些数据被尽早驱逐，以便为你刚刚打开的浏览器（例如）腾出空间。然后这些冷页面<strong>永久</strong>占据着快速的 zram。与此同时，随着你的会话继续和内存压力持续存在，较新的、潜在的“更热”的页面（如你正在积极切换的最近浏览器标签页）被迫溢出到低优先级设备：缓慢的机械硬盘或 SSD。</p>
+<p>这就是所谓的 <strong>LRU 反转 (LRU inversion)</strong>：你最快的存储层被最冷的数据堵塞，无法将其驱逐，这实际上迫使你的工作集落到了最慢的存储上。在这种情况下，zram 不仅未能提供帮助，反而让情况变得比根本没有压缩 swap 更糟。更糟糕的是，系统运行时间越长，情况就越糟：热的页面被丢到磁盘，冷页面在 zram 中固化，zram 持有的数据和你实际需要的数据之间的差距越来越大，那很好了。</p>
+<p><em>译者注：原文此处有一个用于演示zram和zswap工作区别的小动画 感兴趣的读者可以前往体验</em></p>
+<p>除了放置位置的问题，操作两端还需要付出真正的开销 (overhead)。进入 zram 的每一个页面都会消耗 CPU 周期进行压缩。每次访问仍在 zram 中的页面都需要轻微的缺页中断 (minor fault) 并解压缩回主内存才能被使用。你为完全不积极使用的数据付出了压缩和解压缩的开销，而你实际上则在慢速磁盘 I&#x2F;O 中艰难前行。</p>
+<h3 id="zram-回写-writeback-及其局限性"><a href="#zram-回写-writeback-及其局限性" class="headerlink" title="zram 回写 (writeback) 及其局限性"></a><em>zram 回写 (writeback) 及其局限性</em></h3><p>如果我是在几年前写这篇文章，讨论到这里可能就结束了。:-) 但从内核 4.14 开始，zram 支持了回写 (writeback)，这是试图解决这个问题的一次尝试。</p>
+<p>在配置了回写后，zram 可以将空闲 (idle) 或难以压缩的页面写回磁盘。这意味着现代的 zram 设置在理论上可以实现分层 (tiering)，但是：</p>
+<ol>
+<li>它需要手动配置，而不是在内核回收路径 (reclaim path) 中自动完成。</li>
+<li>它需要你深思熟虑，并建立一个合理的方法来处理回写和启发式策略 (heuristics)。</li>
+</ol>
+<p>也许这听起来并不难。请允许我试着说服你改变想法。</p>
+<p>要实现类似于 zswap 的行为，即将不可压缩或空闲页面移动到磁盘，你必须创建自己的解决方案。一个问题是，你不能简单地将 zram 回写指向一个 swap 文件或现有的 swap 分区。相反，回写接口需要一个专用的、未格式化的块设备。使用 <code>zram-generator</code>，配置看起来像这样：</p>
+<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">zram0</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">zram-size</span> <span class="token punctuation">=</span> <span class="token value attr-value">ram / 2</span>
+<span class="token key attr-name">writeback-device</span> <span class="token punctuation">=</span> <span class="token value attr-value">/dev/sda4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>另一个问题是，你必须对磁盘进行重新分区以创建一个专门用于 zram 后备的分区，或者管理回环设备 (loopback devices)（这会增加开销）。你也很难与系统的休眠 swap (hibernation swap) 或其他数据共享这个空间。</p>
+<p>更大的障碍实际上在于如何进行刷新 (flushes)。即使连接了后备设备，zram 也不会自动将页面写出，而且内核也没有内部启发式机制来决定何时将数据从 zram 移动到后备设备，因为 zram 没有充分集成到 mm（内存管理）子系统中来有效地实现这一点。</p>
+<p>相反，你必须创建一个 systemd 定时器或 cron 作业来手动触发这种刷新，即使这样也并不容易。</p>
+<p>例如，要刷新 zram 无法压缩的页面，只需简单执行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> huge <span class="token operator">></span> /sys/block/zram0/writeback<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>……但要想刷出（flush）空闲或冷数据，情况要复杂得多。因为 zram 无法感知其上承载的是交换数据还是其他任何种类的数据，所以 zram 本身并不会以支持简单驱逐（eviction）的方式去追踪数据的最近最少使用时长（LRU age）。你必须首先告诉内核将页面标记为空闲，然后告诉 zram 将它们写出。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">3600</span> <span class="token operator">></span> /sys/block/zram0/idle <span class="token comment"># 1小时</span>
+<span class="token builtin class-name">echo</span> idle <span class="token operator">></span> /sys/block/zram0/writeback<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>正如 <a target="_blank" rel="noopener" href="https://samwho.dev/">Sam</a> 在审阅本文时所说，这是“内存管理的宜家 (IKEA)”——在你组装 <a target="_blank" rel="noopener" href="https://manuall.co.uk/ikea-dombas-wardrobe/">dombås 衣柜</a>时感觉还不错，但当它在生产环境中反咬你一口时，你会觉得自己像个笨蛋<br><em>(dombås 在瑞典语中是笨蛋的谐音) —— 译者注</em>。</p>
+<p>除了复杂性之外，与 zswap 原生的 LRU 分层相比，zram 在架构上也处于相当不利的地位。</p>
+<p>例如，在 zram 中，这种最近最少使用时长检查是一次性事件。当你运行脚本或定时器时，它会获取当前状态的快照。如果一个页面在 5 分钟后变冷，它将留在 RAM 中，直到你再次运行脚本。这与回收过程或收缩器 (shrinkers) 没有任何联系，如果内存压力突然上升，运行你的脚本可能为时已晚。</p>
+<p>将其与 zswap 进行比较，在 zswap 中，LRU 列表的评估是正常内存回收生命周期的一部分。一旦内存压力上升，内核就会在回收过程中查看活动页面列表，并立即驱逐最旧的页面。用具体的话来说，使用 zram 时，在你的脚本运行间隔发生的内存使用尖峰，意味着你的应用程序将在内存压力最大的时候使用磁盘 swap。相比之下，使用 zswap，内核会随着压力的发生自然地做出响应。</p>
+<p>还有一个粒度 (granularity) 问题。使用 zram，你必须蒙一个基于时间（比如 24 小时）执行驱逐的“魔法数字”。如果你蒙得太高，就会浪费 RAM。但如果你蒙得太低，就会刷新你可能真正想要的数据。毕竟，系统只按你说的做，如果没有长期的广泛分析 (profiling)，很难知道告诉它什么才是有效的。</p>
+<p>相比之下，在 zswap 中，没有魔法数字，它会根据压力动态平衡 LRU。如果你有充足的 RAM 且没有压力，它会无限期地保留数据。如果你极度缺乏 RAM，它会积极地驱逐最旧的数据，不管它是 24 小时还是 24 分钟前的数据。它具有内省能力，并能够与系统的其余部分进行协商，因此能够做出更好的决策。</p>
+<p>最终，zram 回写是一种权宜之计 (workaround)，而不是解决方案。并不是说它在某种学术意义上无法发挥作用——它当然可以。问题在于，所有糟糕的边缘情况都正好在最错误的时刻出现：在尖峰中期，当内存压力最高，且你精心猜测的阈值最有可能出错的时候。我强烈建议你不要以这种方式管理内存。</p>
+<h3 id="zswap-的自动分层（及其性能悬崖）"><a href="#zswap-的自动分层（及其性能悬崖）" class="headerlink" title="zswap 的自动分层（及其性能悬崖）"></a>zswap 的自动分层（及其性能悬崖）</h3><p>如上所述，zswap 紧密的 mm（内存管理）集成免费为你提供了所有这些功能，这让人怀疑是不是“天上掉馅饼”。对于大多数工作负载来说，它确实有点像免费的午餐，但有一些值得注意的陷阱。</p>
+<p>zswap 的分层机制通过两个不同的收缩器 (shrinker) 机制工作，这两个机制很容易混淆，因此有必要提前了解它们。</p>
+<p>第一个——<code>zswap_shrinker_count()</code>（及其同伴 <code>zswap_shrinker_scan()</code>）——作为<strong>动态收缩器 (dynamic shrinker)</strong> 的一部分存在。它由内存回收器（如 <code>kswapd</code>、直接回收器以及像 Senpai 这样的主动回收器）独立触发，而不是由池限制触发。它的工作是根据内存访问模式、可压缩性和内存压力动态调整 zswap 池的大小，目标是理想情况下你永远不会触及静态池限制。在 Meta 生产环境的实践中，触及静态池限制的情况很少见，因为这个动态收缩器在此之前就能控制住局面。在内存受限的系统（如笔记本电脑）上，你可能会更频繁地看到它。</p>
+<p>第二个收缩器 <code>shrink_worker()</code>，是基于限制的后备机制，<strong>仅当实际触及池限制时</strong>才会触发。这就是性能悬崖 (performance cliff) 所在的地方，下文将对此进行详细说明。</p>
+<p>棘手的部分是决定要驱逐多少页面。驱逐太少，池会继续填满；驱逐太多，你会在页面刚刚写入磁盘后又立即将其颠簸 (thrash) 回来。以下是 <code>zswap_shrinker_count()</code> 处理它的方式：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token function">zswap_shrinker_count</span><span class="token punctuation">(</span>
+        <span class="token keyword">struct</span> <span class="token class-name">shrinker</span> <span class="token operator">*</span>shrinker<span class="token punctuation">,</span>
+        <span class="token keyword">struct</span> <span class="token class-name">shrink_control</span> <span class="token operator">*</span>sc<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">/* zswap shrinker_count basically answers the question of
+     * how many pages we should evict from zswap to the
+     * backing swap device. */</span>
+
+    <span class="token keyword">struct</span> <span class="token class-name">lruvec</span> <span class="token operator">*</span>lruvec <span class="token operator">=</span>
+        <span class="token function">mem_cgroup_lruvec</span><span class="token punctuation">(</span>sc<span class="token operator">-></span>memcg<span class="token punctuation">,</span> <span class="token function">NODE_DATA</span><span class="token punctuation">(</span>sc<span class="token operator">-></span>nid<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* This is how often we had to fetch data from slow disk
+     * recently. We track this to avoid thrashing. */</span>
+    <span class="token class-name">atomic_long_t</span> <span class="token operator">*</span>nr_disk_swapins <span class="token operator">=</span>
+        <span class="token operator">&amp;</span>lruvec<span class="token operator">-></span>zswap_lruvec_state<span class="token punctuation">.</span>nr_disk_swapins<span class="token punctuation">;</span>
+
+    <span class="token comment">/* ... */</span>
+
+    <span class="token comment">/* Subtract from the lru size the number of pages that
+     * were recently swapped in from disk. The idea is that
+     * had we protected this many more pages in the zswap
+     * LRU from eviction, those disk swapins would not have
+     * happened. */</span>
+    nr_disk_swapins_cur <span class="token operator">=</span> <span class="token function">atomic_long_read</span><span class="token punctuation">(</span>nr_disk_swapins<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>nr_freeable <span class="token operator">>=</span> nr_disk_swapins_cur<span class="token punctuation">)</span>
+            nr_remain <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            nr_remain <span class="token operator">=</span> nr_disk_swapins_cur <span class="token operator">-</span> nr_freeable<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">atomic_long_try_cmpxchg</span><span class="token punctuation">(</span>
+        nr_disk_swapins<span class="token punctuation">,</span> <span class="token operator">&amp;</span>nr_disk_swapins_cur<span class="token punctuation">,</span> nr_remain<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    nr_freeable <span class="token operator">-=</span> nr_disk_swapins_cur <span class="token operator">-</span> nr_remain<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>nr_freeable<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Scale eviction by compression ratio. If compression is
+     * good (stored is small), we evict fewer pages to avoid
+     * wasting I/O for small gains. */</span>
+    <span class="token keyword">return</span> <span class="token function">mult_frac</span><span class="token punctuation">(</span>nr_freeable<span class="token punctuation">,</span> nr_backing<span class="token punctuation">,</span> nr_stored<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><em><a target="_blank" rel="noopener" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/zswap.c?h=v6.19#n1208">zswap_shrinker_count()</a> 来自 Linux 6.19</em></p>
+</blockquote>
+<p>也就是说，zswap 不是依赖静态阈值或定期轮询，而是基于回收路径的<strong>实时反馈</strong>进行驱逐，跟踪实际的磁盘换入 (swap-in) 率和压缩比。冷页面在压力累积的那一刻流向 SSD。当内存真正稀缺时，压缩池中容纳的是你活跃的工作集，而不是你几个小时前就不再碰的数据，并且最关键的缺页中断 (page faults) 留在快速的压缩 RAM 中，而不是走向磁盘。</p>
+<p>不过，该来的总会来的，这里也有个坑。当 zswap 达到其 <code>max_pool_percent</code> 限制时，<code>zswap_check_limits()</code> 会导致 <code>zswap_store()</code> 拒绝页面并返回 false。这会唤醒 <code>shrink_worker()</code> 将冷页面驱逐到磁盘，但该工作是<strong>异步</strong>发生的——当前页面未存储在 zswap 中，必须马上找个地方呆着。</p>
+<p>接下来发生的事情取决于 cgroup 的回写模式：</p>
+<ol>
+<li>如果该 cgroup <strong>启用了回写</strong>（默认情况），页面会落入 <code>__swap_writepage()</code> 并直接进入磁盘，完全绕过 zswap 缓存。</li>
+<li>如果该 cgroup <strong>禁用了回写</strong>，页面会循环回到活动列表 (active list)，这避免了磁盘 I&#x2F;O，但意味着回收器必须稍后重试。</li>
+</ol>
+<p>这意味着在启用回写且处于重度内存压力下，zswap 会在没有警告的情况下开始将页面直接发送到磁盘。这创造了一个<strong>性能悬崖</strong>，系统 swap 性能会突然从你期望的 RAM 访问量级下降到你预期的磁盘访问量级。这并不比 zram 的行为更糟，但这确实是需要牢记的一点。</p>
+<h3 id="性能特征与权衡-Performance-characteristics-and-trade-offs"><a href="#性能特征与权衡-Performance-characteristics-and-trade-offs" class="headerlink" title="性能特征与权衡 (Performance characteristics and trade-offs)"></a>性能特征与权衡 (Performance characteristics and trade-offs)</h3><p>这两种技术都用 CPU 周期换取更少的 I&#x2F;O——在正常运行下，它们的开销概况大体相当。真正重要的差异在于<strong>故障模式 (failure modes)</strong>，而且这些差异是巨大的。</p>
+<h4 id="处理不可压缩数据"><a href="#处理不可压缩数据" class="headerlink" title="处理不可压缩数据"></a><em>处理不可压缩数据</em></h4><p>当数据很容易被压缩时，压缩 swap 显然是有用的。不太明显的是，当数据不易压缩时会发生什么，在这方面，这两种技术做出了相反的押注。</p>
+<p><strong>zswap</strong> 可以在压缩期间检测到不可压缩页面并拒绝它们，将它们直接发送到磁盘。这既节省了 RAM（通过不存储压缩率差的数据），又节省了 CPU 周期（通过不反复尝试压缩不可压缩的数据）。你可以在 <code>/sys/kernel/debug/zswap/</code> 的 <code>reject_compress_poor</code> 计数器中看到 zswap 这样做的频率。</p>
+<p>相比之下，<strong>zram</strong> 默认会压缩所有内容，不管压缩比如何。zram 在其 <code>huge_pages</code> 统计中跟踪这些压缩不良的页面，但会乐于存储甚至只压缩到 3.9KB 的 4KB 页面，从而浪费内存和 CPU。</p>
+<p>这意味着 zswap 在面对具有大量不可压缩数据的工作负载时，在最坏情况下通常表现得更好，尽管在典型的混合工作负载的实践中，这种差异通常可以忽略不计。</p>
+<p>最近的内核版本中，zswap 拒绝不可压缩页面时的行为也发生了演变。默认情况下，如前文 <code>swap_writeout()</code> 所示，被拒绝的页面会落入 <code>__swap_writepage()</code> 并转到磁盘。但是对于不希望出现任何 swap I&#x2F;O 的工作负载，内核现在支持按照<strong>每个 cgroup 单独禁用回写模式 (per-cgroup writeback disabled mode)</strong>（内核 6.8+）。在 cgroup 禁用该模式后，任何被 zswap 拒绝的页面——无论是由于不可压缩、池限制还是任何其他原因——都会循环回到活动列表，而不是转到磁盘。这防止了一种形式的 LRU 反转：热的不可压缩页面先于更冷但可压缩的页面写入磁盘。要启用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">></span> /sys/fs/cgroup/<span class="token operator">&lt;</span>cgroup<span class="token operator">></span>/memory.zswap.writeback<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然而，禁用回写模式也有一个缺点：如果内存压力很高，且一个 cgroup 正在生成大量不可压缩数据，回收器最终可能会陷入病态的循环——反复尝试压缩相同的不可压缩页面，失败，将它们循环回活动列表，然后再试一次。如果没有磁盘作为后备，就无法取得进展，这会在生产环境中引发严重问题。我们目前正在研究一种方法，将不可压缩页面按原样保留在 zswap 池中而不是循环它们，将其组织在每个 cgroup 的 LRU 中，以便收缩器在它们变冷后将它们驱逐到磁盘。</p>
+<h4 id="SSD-磨损考虑-SSD-wear-considerations"><a href="#SSD-磨损考虑-SSD-wear-considerations" class="headerlink" title="SSD 磨损考虑 (SSD wear considerations)"></a><em>SSD 磨损考虑 (SSD wear considerations)</em></h4><p>一些人建议优先选择 zram 而不是 zswap 的另一个原因是，他们认为这能<a target="_blank" rel="noopener" href="https://forums.kicksecure.com/t/enable-and-use-zram-instead-for-swap/654/2">减少 SSD 的磨损</a>——也就是说，他们认为使用它可以减少磁盘 I&#x2F;O。</p>
+<p><strong>但这是愚蠢的</strong>。RAM 是有限的。如果你用某种数据填满你的 RAM，最终，当你所有的 RAM 都被使用时，数据必须去往某个地方。</p>
+<p>在服务器和桌面环境的多数情况下，内存由两种类型的页面主导。一种是<strong>匿名页面 (anonymous pages)</strong>，如程序堆和栈数据。另一种是<strong>文件页面 (file pages)</strong>，即磁盘缓存 (disk cache)。如果你在没有物理后备设备的情况下使用 zram，你实际上将所有匿名数据锁定在了 RAM 中。当内存压力来袭时，内核别无选择，只能积极地驱逐文件缓存以腾出空间。</p>
+<p>如果这些被驱逐的文件页面是“脏的” (dirty)（即它们包含修改过的数据），内核被迫将它们写入 SSD 以释放空间并继续运行。即使它们是“干净的”（即它们未被修改），它们也会被丢弃，迫使 SSD 在下次需要时再次读取它们。因为拒绝了从 zswap 或 swap 分区将冷的、未使用的匿名数据换出到物理磁盘，你扼杀了页面缓存 (page cache)。这迫使系统不断刷新并重新读取活跃文件。</p>
+<p><strong>仅使用 zram 确实消除了磁盘 swap I&#x2F;O，但它实际上只是 <strong>将压力转移到了页面缓存上</strong> 。在内存压力下，更多的文件缓存可能会被丢弃（导致重新读取）或写回（如果是脏的）。使用磁盘后备的 swap（或其前面的 zswap），系统通常可以驱逐冷的匿名页面，这可能会减少缓存波动 (cache churn)，从而 <strong>减少</strong> I&#x2F;O。这意味着如果管理不当，zram 实际上会 <strong>增加</strong> 总的磁盘 I&#x2F;O。</strong></p>
+<p>真正的目标是将活跃的工作集保留在 RAM 中——而妥善使用的磁盘 swap 能够为你提供帮助，它为冷匿名页面提供了一个去处，而不是强迫冷数据和热数据争夺同一个内存池。</p>
+<p>我们有一些具体的数字可以在实践中展示这一点。Instagram 基于 Django 运行，且在很大程度上受限于内存瓶颈（memory bound）。我们在 Instagram 上进行了一项测试：将其现有的配置（完全禁用交换空间，即 swap）调整为采用磁盘交换（disk swap）和 zswap 分层（zswap tiering）的新架构。Django worker 在其生命周期内会积累大量冷堆状态 (cold heap state)，比如复制了内存的 fork 进程、不断增长的请求缓存、Python 对象开销等等，懂的都懂。结果有两个方面：</p>
+<ul>
+<li>我们实现了大约 5:1 的压缩比。这对于内存限制的工作负载来说是一个巨大的好处，也使我们能够考虑进一步堆叠工作负载。</li>
+<li>与完全没有 swap 相比，启用 zswap <strong>将磁盘写入减少了高达 25%</strong>（！）。</li>
+</ul>
+<p>你可以想象，作为这项测试的结果，Instagram 已经使用 zswap 好几年了。</p>
+<p>现在，你们中的一些人看着这个可能会想，增加 swap 怎么可能会减少磁盘 I&#x2F;O。增加更多基于磁盘的内存卸载反而会减少 I&#x2F;O，这到底是怎么回事？</p>
+<p>好吧，你可能认为你永远不会用光所有的 RAM。但在 Linux 上，我们实际上不会让 RAM 空着。内核遵循的理念是“未使用的 RAM 就是浪费的 RAM”，因此会自动用页面缓存和其他好用的东西（如文件、库和磁盘数据的副本）填满任何空闲空间，以加快未来的访问速度。</p>
+<p>作为其中的一部分，内核守护进程 <code>kswapd</code> 会在可用空间低于特定水位线时主动唤醒以回收内存，并努力平衡内存使用。在理想情况下，我们希望始终有可用的页面可以立即分配而无需阻塞等待回收，因此它将压力管理作为一种正常的运行状态，以确保始终存在用于即时分配的缓冲区。</p>
+<p>这些被回收的内存必须找个地方呆着，若只有 zram，它只有一个去处：文件缓存。而有了基于磁盘的 swap（或前端的 zswap），内核就有了选择——它可以根据新近度 (recency) 和访问模式回收较冷的那一个，不管是匿名页面还是文件缓存。此时发生的 I&#x2F;O 是深思熟虑的，而不是迫不得已的。</p>
+<p>当然，Instagram 的工作负载对 zswap 来说尤其有利，所以对于具体数字只需姑妄听之。但尽管如此，其方向几乎适用于所有用例：工作负载通常确实会随着时间的推移积累冷的匿名页面，而且这些页面往往可以很好地被压缩。</p>
+<p>不仅如此，zswap 充当了<strong>写入减少过滤器 (write-reduction filter)</strong>，从而显著降低了 SSD 的磨损。它吸收了 RAM 中高频的换出&#x2F;换入瞬态波动，在数据接触磁盘之前对其进行压缩。只有经过缓存洗礼后真正冷的数据才会被写入。在我上面提到的 Instagram 案例中，磁盘写入减少 25% 的原因正是因为内存缓存吸收了原本会到达 SSD 的频繁写入波动。</p>
+<p>现代 SSD 通常也能处理数百T(terabytes) 的写入。消费级 SSD 通常提供 150-600 TB TBW（Terabytes Written）。在 2026 年，除非你使用的是非常廉价的 eMMC 存储，否则整个关于磨损的讨论在很大程度上已经失去意义，而且即使在 eMMC 上，zram 也未必是你最好的选择。</p>
+<p>话虽如此，如果 swap I&#x2F;O 确实是特定工作负载的硬性限制要求，zswap 的 per-cgroup 禁用回写模式（见上文不可压缩数据部分）使你能够完全阻止特定 cgroup 的磁盘 swap I&#x2F;O，而无需放弃 zswap 与内存管理子系统其余部分的集成。你甚至可以进行混合搭配：对延迟敏感的服务可以使用禁用了回写的 zswap，而其他服务则使用完整的“zswap-然后-磁盘”分层。这比一刀切的 zram 方法要灵活得多。</p>
+<h4 id="内存压力下的性能-Performance-under-memory-pressure"><a href="#内存压力下的性能-Performance-under-memory-pressure" class="headerlink" title="内存压力下的性能 (Performance under memory pressure)"></a><em>内存压力下的性能 (Performance under memory pressure)</em></h4><p>zswap 和 zram 在正常运行下具有相似的开销。它们真正有区别的地方在于它们<strong>在内存压力下的故障模式 (failure modes)</strong>，理解这些故障模式是理解该使用它们之间哪一个的关键。</p>
+<p>对于 <strong>zswap</strong>，压力是被持续且主动地处理的。随着池被填满，动态收缩器 (<code>zswap_shrinker_count</code>) 会唤醒并提前将冷页面驱逐到磁盘，跟踪磁盘换入率和压缩比以避免颠簸。在实践中，这意味着几乎很少触及池限制。在 Meta 的生产服务器上，它几乎从未触发——动态收缩器在那之前很久就控制了局面。当触及限制时，会出现一个性能悬崖，页面开始绕过缓存直接流向磁盘。这并不好，但这是一个<strong>逐渐的降级</strong>：系统是变慢，而不是突然崩溃。</p>
+<p>对于 <strong>zram</strong>，没有同等的机制。没有任何东西在监控设备的填充并采取行动。当它达到容量时，它<strong>直接停止接受页面</strong>。如果有一个较低优先级的磁盘 swap 设备，内核就会溢出到那里，并带来上面描述的所有 LRU 反转问题。如果没有其他设备，系统要么在内核被迫尝试回收任何可用资源时挂起 (hangs)，要么 OOM killer 被触发。在任何一种情况下，系统都不会优雅地降级。</p>
+<p>情况实际上可能更糟——在某些情况下，<strong>OOM killer 甚至可能根本不会触发</strong>。2026 年 3 月，Cloudflare 的 Matt Fleming 报告称生产机器出现了 20 到 30 分钟的停机 (brownouts)，而 OOM killer 一次也没有触发。原因正是 zram 块设备架构的直接后果。<code>should_reclaim_retry()</code> 通过检查空闲的 swap 槽位来估计可回收的内存。对于有磁盘后备的 swap，空闲槽位意味着页面可以落在那里而不消耗更多的 RAM。对于 zram，设备是<strong>精简配置 (thin-provisioned)</strong> 的：它报告其配置的全部容量为可用容量，即使本应用于支持这些槽位的物理 RAM 已经耗尽。一个使用率为 10% 的 377 GiB 设备会报告大约 340 GiB 的空闲槽位——但写入它们所需的 RAM 系统中已经没有了。<code>should_reclaim_retry()</code> 不断返回 true，而内核则无限期地在直接回收 (direct reclaim) 中空转。即使 OOM killer 最终触发，它也绝不是许多人所期望的那种干净的退出机制。</p>
+<p>你可能会想：如果系统正在大量向磁盘进行 swap，响应能力早就被毁了。我宁愿让系统 OOM 杀掉一个进程，也不愿让它慢慢颠簸折磨用户。但这里有一个经常被忽视的危险细微差别——内核 OOM killer 离瞬间触发差得远呢。</p>
+<p>正如我在 SREcon 演讲中提到的那样，依赖内核内置的 OOM killer 来挽救响应能力往往是一场注定失败的战斗。内核在任何直接意义上其实并不知道自己何时耗尽了内存：“内存耗尽 (out of memory)”不仅意味着内存满了，还意味着<strong>没有任何东西可以回收了</strong>——而确定这一点的唯一方法是尝试完整的回收周期并让它失败。</p>
+<p>在调用 OOM killer 之前，内核会进入一个激进回收 (aggressive reclaim) 的循环：</p>
+<ul>
+<li>扫描 LRU 列表寻找可丢弃的干净页面。</li>
+<li>尝试将脏页面刷新到磁盘。</li>
+<li>循环遍历各种内存类型以试图释放任何东西。</li>
+<li>与驱动程序协商进行内存收缩。</li>
+</ul>
+<p>我们经常看到，对于简单的生产工作负载，这个过程可能会花费几秒钟甚至几分钟。在此期间，你的应用程序被挂起，系统似乎死机了。到 OOM killer 真正触发时，用户可能已经经历了严重的不响应，并且系统可能被死锁到了用户几乎无能为力的地步。</p>
+<p>内核 OOM killer 也非常不精确。它使用一个启发式的“得分 (score)”来决定杀死谁——如果“得分”听起来像个推脱之词，那是因为它确实如此。这是内核在承认它也不知道谁才是正确的牺牲品，并希望你能通过 <code>oom_score_adj</code> 来填补这个空白。实际的结果是它通常只是杀掉<strong>最大</strong>的进程，而不是真正泄漏内存的那个。想象一个 Chrome 占用 80% RAM 而某个后台守护进程开始泄漏的系统：OOM killer 将目标锁定为 Chrome，杀了它能使系统稳定，而那个守护进程从未被识别。下次它泄漏时，Chrome 会再次死亡。而那个守护进程，就它而言，该漏还得漏。</p>
+<h3 id="Fedora-上的-zram"><a href="#Fedora-上的-zram" class="headerlink" title="Fedora 上的 zram"></a>Fedora 上的 zram</h3><p>为什么像 Fedora 这样的发行版默认在配备快速 SSD 的桌面上使用纯 zram 设置？为什么不直接使用 zswap？</p>
+<p>答案是 zswap 实际上从未成为选项。Fedora 一段时间以来的目标是<a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/Changes/SwapOnZRAM">完全消除磁盘 swap</a>，既然 zswap 在架构上是磁盘 swap 前面的缓存，它根本就不符合候选条件。</p>
+<p>他们消除磁盘 swap 的原因并不完全在于内存管理，还在很大程度上受到其他系统属性的驱动。例如，当 swap 将页面驱逐到磁盘时，私钥、密码、会话令牌 (session tokens) 和浏览器状态最终会留在一个持久化的分区上。zram 完全避开了这一点：它位于 RAM 中，重启就会擦除它，所以不存在任何数据到达磁盘的风险。Swap 加密也能在这里提供帮助，但它增加了配置的复杂性，并且仍然需要信任密钥管理的流程，最终 Fedora 的目标是<strong>消除这个攻击面 (surface area)</strong>，而不是在上面叠加缓解措施。</p>
+<p>Fedora 将 zram 与 <code>systemd-oomd</code> 结合使用，后者监控 <a target="_blank" rel="noopener" href="https://facebookmicrosites.github.io/psi/docs/overview">PSI</a> 以根据策略提前主动杀死进程。他们通过只有这一个 swap 设备（即 zram）也避开了 LRU 反转，由于根本没有磁盘 swap，自然也就无从反转。</p>
+<p>考虑到他们所处的限制条件，以及他们通过 <code>systemd-oomd</code> 实施的缓解措施，这种设置在某种程度上是有意义的。在他们的配置下，处于沉重内存压力下的桌面用户可能已经感觉到了卡顿，一个用户空间 OOM 守护进程干净利落地终止掉有问题的进程，通常好过于等待系统在磁盘 swap 颠簸中挣扎好几分钟。</p>
+<p>但是，这很重要，<strong>这只有在用户空间 OOM 守护进程正在运行和配置，且没有任何磁盘 swap 设备的情况下才有效</strong>。没有 <code>systemd-oomd</code>，你得到的只有硬限制而不是干净利落的杀死进程，系统将同样严重或更严重地挂起。</p>
+<p>所以，可以说纯粹从内存管理的角度来看，这几乎肯定不是最佳的设置，zswap 更紧密的 mm（内存管理）集成和 LRU 分层提供了 zram 无法匹敌的真正优势。但内存效率并不是 Fedora 优化的唯一目标，他们的一些限制与内存管理毫无关系。在这些限制范围内，他们的决定是连贯的：最佳性总是相对于你试图实现的目标而言的（这一点也适用于你，亲爱的读者——你比我更清楚你试图做什么）。</p>
+<p>话虽如此，如果一旦 zswap 获得了即将推出的无盘模式 (disk-free mode)，Fedora 也开始向 zswap 倾斜，我不会感到惊讶，特别是考虑到内核开发者越来越倾向于不再支持 zram（见下文）。</p>
+<h3 id="如果我使用-zram，我应该如何确定设备大小？"><a href="#如果我使用-zram，我应该如何确定设备大小？" class="headerlink" title="如果我使用 zram，我应该如何确定设备大小？"></a>如果我使用 zram，我应该如何确定设备大小？</h3><p>在简单的场景中，使用 zram，你必须预先猜测设备的大小。猜小了，浪费潜力。猜大了，有触发 OOM killer或导致不必要的轻微缺页中断 (minor faults) 的风险。</p>
+<p>那么 Fedora 是如何决定大小的呢？嗯，他们将其<a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/Changes/Scale_ZRAM_to_full_memory_size">大小设置为高达你的 RAM 的 100%</a>。大功告成。</p>
+<p>……好吧，也许这需要更多的解释。:-)</p>
+<p>Fedora 在这里采取了一种激进的方法。他们将 zram 设备的大小设置为等于 100% 的物理 RAM，上限为 8GB。你可能会想，这怎么可能讲得通——一个人怎么能拥有一个大小等同于全部 RAM 的 swap 设备呢？当然，要从 zram 中读取一个页面，我必须将其解压缩到主 RAM 中，对吧？如果 zram 满了，它甚至能把解压缩的页面放在哪里？这是什么疯狂的想法？！</p>
+<p>Fedora 用一点受过教育的赌博 (educated gambling) 解决了这个问题。首先，zram 是精简配置的 (thin provisioned)。在实际发生页面错误 (faulted) 之前，是不占用内存的。因此，一个设置为 100% 但里面什么都没有的 zram 设备不占用任何空间，除了用于元数据 (bookkeeping) 的少量空间。</p>
+<p>除此之外，他们还打赌你的数据压缩良好——比方说，3:1。这样的话，一个达到 100% 大小的 zram 设备物理上将只占据三分之一的 RAM，留下 66% 空闲给操作系统和解压缩缓冲区。</p>
+<p>然后，他们使用 <code>systemd-oomd</code> 监视内存压力。如果它看到 zram 在物理上填满了 RAM，它就会根据策略在触发死锁（即由于没有足够空间解压缩而卡死）的边界之前杀掉某些东西。</p>
+<h3 id="如何决定使用哪个-How-to-decide-which-to-use"><a href="#如何决定使用哪个-How-to-decide-which-to-use" class="headerlink" title="如何决定使用哪个 (How to decide which to use)"></a>如何决定使用哪个 (How to decide which to use)</h3><p><strong>如果有疑问，我强烈建议你使用具有磁盘后备的 zswap (zswap with disk-backed swap)。</strong> 它比 zram 更紧密地与内存管理子系统集成，在回收和驱逐方面有更好的启发式算法，处理不可压缩数据的能力更强，并且在压力下能够优雅地降级。它还能透明地处理休眠 (hibernation)。即使你有大量的 RAM，在很多情况下，基于磁盘的 swap 仍然具有显着的优势。</p>
+<p>zram 有意义的情况则更为微妙。在<strong>嵌入式系统</strong>中，zram 非常简单且自包含。当根本没有磁盘时，它是明显的选择，在这些环境中，硬限制的可预测性通常是一个特性而不是缺陷。另一种情况是你<strong>出于设计考量故意采用完全无盘</strong>，就像 Fedora 的情况一样。</p>
+<p><strong>Android</strong> 是无盘方法的最佳范例：数十亿台设备运行着没有磁盘 swap 的 zram，并配有用户空间的 kill 守护进程 (<code>lmkd</code>)。这种组合完全避免了 LRU 反转，因为没有可倒置的磁盘 swap 层。但 Android 的 zram 之所以有效，是因为它针对手机硬件和手机工作负载进行了广泛的调优——正如上文所述，即便是开箱即用的诸如预读默认值这样基础的东西，也会与你作对，而这些还只是可见的选项。这些假设无法迁移，Android 的调优也是一样。</p>
+<p><strong>服务器</strong>是另一个 zram 极难被接受的地方。除了 zram 的不降级方式之外，zram 的内存使用对内核基本上是不透明的，并且<strong>不计入任何 cgroup</strong>。内核无法了解 zram 代表给定 cgroup 消耗了多少内存，这可能会破坏服务之间的资源隔离和压力信号。对于许多运行容器化或隔离工作负载的组织而言，仅这一缺口就成为了采用 zram 的硬性障碍。</p>
+<p>即便是嵌入式和无盘场景的应用范围也在缩小。我们在这个领域工作的许多人对未来的走向有着相似的看法。作为块层核心贡献者之一的 Christoph，话说得很直接：</p>
+<blockquote>
+<p>“不行。停止仅仅因为你在滥用块驱动程序作为压缩 swap 而向块层添加 hack。请大家把精力集中到可插拔的 zswap 后端 (pluggable zswap backends) 和无后备存储的 zswap (backing-store-less zswap) 上，而不是让 zram 这个烂摊子变得更糟。”<br>—— <a target="_blank" rel="noopener" href="https://lore.kernel.org/r/aabrv_xrsKPx9jZf@infradead.org">Christoph Hellwig</a>, NVMe 维护者和块开发人员</p>
+</blockquote>
+<p>内存管理维护者之一的 Johannes 也同意：</p>
+<blockquote>
+<p>“压缩是内存的消费者。很大的那种。在 swap 机制下它处于回收路径。所以现在你必须通过夹在中间的块层来解决错综复杂的 MM (内存管理) 问题。[…] 我们应该努力使 zswap 成为唯一的压缩 swap 实现。它将极大地简化从事 MM 和 swap 子系统的内核开发人员的工作。这也会让用户的情况变得更好。”<br>—— <a target="_blank" rel="noopener" href="https://lore.kernel.org/r/aacTW_FEp6c1coDf@cmpxchg.org">Johannes Weiner</a>, MM 维护者</p>
+</blockquote>
+<p>Christoph 提到的“可插拔的 zswap 后端和无后备存储的 zswap”，指的是正在进行的积极工作，允许 zswap <strong>在没有任何磁盘 swap 设备的情况下运行</strong>——这将终结 zram 在无盘设置下的剩余用例。Nhat Pham 目前正在以<strong>虚拟交换空间 <a target="_blank" rel="noopener" href="https://lwn.net/Articles/1059201/">(virtual swap spaces</a>)</strong> 的名义领导这项工作。前行的方向非常明确。</p>
+<p>在实践中，在我们大规模部署 zswap 的所有服务中，它<strong>持续地减少了 OOM 发生率，降低了磁盘写入压力，而且这一切都在没有任何人工干预的情况下完成</strong>。zram 是内存管理子系统中完全属于手动维护的部分——你承担着正确管理它的责任，或者承受后果——而 zswap 由内核自身管理，包含着所有附带的实时反馈、回收集成和自动分层。对于绝大多数的 Linux 系统，你真的希望内核用 zswap 来做这件工作。</p>
+<p>非常感谢 Nhat, Javier, Sam, Johannes 和 Andreas 对这篇文章的反馈。</p>
+
+        </div>
+
+        
+            <div class="post-info">
+                <div class="post-meta">
+    
+        <div class="meta-entry">
+            <i class="fa-regular fa-calendar"></i>
+            2026.02.02
+        </div>
+    
+    
+    
+    
+        <div class="meta-entry">
+            
+<i class="fa-solid fa-fire"></i>
+<span id="visit-counter-0edfbe80-003f-11f1-8d65-fdfa89075266">Loading...</span>
+
+<script src="/js/plugins/visit-counter.js"></script>
+
+<script>
+    window.addEventListener("load", (event) => {
+        loadVisitCounter('0edfbe80-003f-11f1-8d65-fdfa89075266', 'https://blog-counter.swim853279614.workers.dev', 'QGefXOT0AOOXUXWigh4UPPrhSaMzy9to6cxtXib7Cur2sPQU06PBgDRHA1DG9rdH', true);
+    });
+</script>
+        </div>
+        <!-- TODO: visit counter -->
+    
+</div>
+            </div>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div></div>
+            
+            
+                <a class="page-button clickable"
+                   href="/2025/12/12/sing-box%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%BF%87tailscale%E4%BD%BF%E7%94%A8kde-connect/"
+                   title="sing-box实现通过tailscale使用kde-connect">
+                    下一篇
+                    <span class="button-icon button-icon-next"><i class="fa-solid fa-angles-right"></i></span>
+                </a>
+            
+        </div>
+    
+    
+    
+    <div class="post-comment">
+        <a id="comments"></a>
+        <div id="gitalk-container" style="margin: 0 0 30px 0;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js"
+            integrity="sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/md5@2.3.0/dist/md5.min.js"
+            integrity="sha256-se0xQkOOX44nCifjHRn5CNgLrhal4aKrdzH5gaCXB/4=" crossorigin="anonymous"></script>
+    <script>
+        const gitalk = new Gitalk({
+            clientID: 'Ov23liH4l7MYCx2uuB3M',
+            clientSecret: '2082b97cde3a522a39766f85d742d929ceb72139',
+            repo: 'blog_comments',
+            owner: 'swim233',
+            admin: ['swim233'],
+            id: '0edfbe80-003f-11f1-8d65-fdfa89075266' || MD5(window.location.pathname),
+            distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+</div>
+</main>
+<div class="footer">
+    <div>
+        <span>© 2025&nbsp;</span><i class="fa fa-star"></i>&nbsp;<span>TheSw1m</span>
+    </div>
+    <div>
+    <span>
+        Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a> &amp;
+        Theme <a href="https://github.com/SakuraKoi/hexo-theme-whirlwind" target="_blank">Whirlwind </a>
+    </div>
+    <div class="moe-icp">
+        <img src="/images/moeicp.webp">
+        <a href="https://icp.gov.moe/?keyword=20251346" target="_blank">萌ICP备20251346号</a>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/js/all.min.js"
+        integrity="sha256-ShtKaqIDL7Iv2AJqPcHXS/s6kjSFvbypN5bRIlKTIk4=" crossorigin="anonymous"></script>
+</body>
+</html>
